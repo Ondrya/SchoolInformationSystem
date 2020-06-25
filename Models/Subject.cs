@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SchoolInformationSystem.Models
 {
@@ -11,15 +12,17 @@ namespace SchoolInformationSystem.Models
         /// <summary>
         /// уникальный идентификатор предмета
         /// </summary>
-        Guid Id { get; set; }
+        public Guid Id { get; set; }
         /// <summary>
         /// Название предмета
         /// </summary>
-        string Name { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// список классов (цифр, в которых данный предмет доступен для преподавания)
         /// </summary>
-        List<int> GroupRanges { get; set; }
+        public List<int> GroupRanges { get; set; }
+
+        public Subject() { }
 
         /// <summary>
         /// Конструктор для нового предмета
@@ -44,6 +47,11 @@ namespace SchoolInformationSystem.Models
             Id = id;
             Name = name;
             GroupRanges = groupRanges;
+        }
+
+        public override string ToString()
+        {
+            return $"\n\tId: {Id}\n\tНазвание: {Name}\n\tGroupRanges: {string.Join(", ", GroupRanges.ToArray())}";
         }
     }
 }

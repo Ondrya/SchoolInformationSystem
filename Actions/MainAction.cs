@@ -20,55 +20,60 @@ namespace SchoolInformationSystem.Actions
 
             if (session.UserRole == Roles.Admin)
             {
-                Console.WriteLine($"Действия администратора...");
-
-                Console.WriteLine($"");
-                Console.WriteLine($"1. Показать список преподавателей");
-                Console.WriteLine($"1.1 Преподаватель: найти");
-                Console.WriteLine($"1.2 Преподаватель: добавить");
-                Console.WriteLine($"1.3 Преподаватель: редактировать");
-                Console.WriteLine($"1.4 Преподаватель: удалить");
-
-                Console.WriteLine($"");
-                Console.WriteLine($"2. Показать список учеников");
-                Console.WriteLine($"2.1 Ученик: найти");
-                Console.WriteLine($"2.2 Ученик: добавить");
-                Console.WriteLine($"2.3 Ученик: редактировать");
-                Console.WriteLine($"2.4 Ученик: удалить");
-
-                Console.WriteLine($"");
-                Console.WriteLine($"3. Показать список предметов");
-                Console.WriteLine($"3.1 Предмет: найти");
-                Console.WriteLine($"3.2 Предмет: добавить");
-                Console.WriteLine($"3.3 Предмет: редактировать");
-                Console.WriteLine($"3.4 Предмет: удалить");
-
-                Console.WriteLine($"");
-                Console.WriteLine($"4. Показать список учебных классов");
-                Console.WriteLine($"3.1 Класс: найти");
-                Console.WriteLine($"3.2 Класс: добавить");
-                Console.WriteLine($"3.3 Класс: редактировать");
-                Console.WriteLine($"3.4 Класс: удалить");
+                Console.Clear();
+                //Console.WriteLine($"Действия администратора...");
+                Console.WriteLine($"1. Преподаватели");
+                Console.WriteLine($"2. Ученики");
+                Console.WriteLine($"3. Предметы");
+                Console.WriteLine($"4. Учебные классы");
+                Console.WriteLine($"0. Выход");
+                Console.WriteLine($"...");
+                Console.Write($"Ваш выбор: ");
+                while (true)
+                {
+                    var input = Console.ReadKey().KeyChar;
+                    switch (input)
+                    {
+                        case '1':
+                            WorkWithTeacher.ShowMenu(session);
+                            break;
+                        case '2':
+                            WorkWithStudent.ShowMenu(session);
+                            break;
+                        case '3':
+                            WorkWithSubject.ShowMenu(session);
+                            break;
+                        case '4':
+                            WorkWithGroup.ShowMenu(session);
+                            break;
+                        case '0':
+                            Environment.Exit(0);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
             }
-            if (session.UserRole == Roles.Teacher)
-            {
-                Console.WriteLine($"Действия преподавателя...");
+            //if (session.UserRole == Roles.Teacher)
+            //{
+            //    Console.WriteLine($"Действия преподавателя...");
 
-                Console.WriteLine($"");
-                Console.WriteLine($"1. Показать список доступных классов");
-                Console.WriteLine($"1.1 Выбрать класс");
-                Console.WriteLine($"1.2 Выбрать ученика");
-                Console.WriteLine($"1.3 Оценка: поставить");
-                Console.WriteLine($"1.4 Оценка: редактировать");
-                Console.WriteLine($"1.5 Оценка: удалить");
-            }
-            if (session.UserRole == Roles.Student)
-            {
-                Console.WriteLine($"Действия ученика...");
+            //    Console.WriteLine($"");
+            //    Console.WriteLine($"1. Показать список доступных классов");
+            //    Console.WriteLine($"1.1 Выбрать класс");
+            //    Console.WriteLine($"1.2 Выбрать ученика");
+            //    Console.WriteLine($"1.3 Оценка: поставить");
+            //    Console.WriteLine($"1.4 Оценка: редактировать");
+            //    Console.WriteLine($"1.5 Оценка: удалить");
+            //}
+            //if (session.UserRole == Roles.Student)
+            //{
+            //    Console.WriteLine($"Действия ученика...");
 
-                Console.WriteLine($"");
-                Console.WriteLine($"1. Показать дневник");
-            }
+            //    Console.WriteLine($"");
+            //    Console.WriteLine($"1. Показать дневник");
+            //}
 
         }
     }
