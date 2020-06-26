@@ -1,41 +1,42 @@
 ﻿using SchoolInformationSystem.Models;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SchoolInformationSystem.Actions
 {
-    public class SubjectAction
+    public class GroupAction
     {
         /// <summary>
-        /// Показать все предметы с навигацией
+        /// Показать все классы с навигацией, поиск по цифре класса опционно
         /// </summary>
         /// <param name="session"></param>
+        /// <param name="search"></param>
         public static void ShowAll(Session session, string search = "")
         {
             Console.Clear();
-            var subjects = new List<Subject>();
+            var groups = new List<Group>();
 
 
             if (string.IsNullOrWhiteSpace(search))
             {
-                subjects = DbConnector.GetSubjects();
+                groups = DbConnector.GetGroups();
             }
             else
             {
-                subjects = DbConnector.GetSubjects().Where(i => i.Name.ToUpper().Contains(search.ToUpper())).ToList();
+                groups = DbConnector.GetGroups().Where(i => i.Rang.ToString().Contains(search)).ToList();
             }
-            var menuItems = subjects.Select(item => new Menu(item.Id, item.Name)).ToList();
+            var menuItems = groups.Select(item => new Menu(item.Id, $"{item.Rang} {item.Letter}")).ToList();
 
             var ConsoleMenuResult = App.ConsoleMenu(menuItems);
             if (ConsoleMenuResult == Guid.Empty)
             {
-                WorkWithSubject.ShowMenu(session);
+                WorkWithGroup.ShowMenu(session);
             }
             else
             {
-                SubjectAction.Show(subjects.SingleOrDefault(i => i.Id == ConsoleMenuResult), session);
+                GroupAction.Show(groups.SingleOrDefault(i => i.Id == ConsoleMenuResult), session);
             }
         }
 
@@ -44,7 +45,7 @@ namespace SchoolInformationSystem.Actions
         /// </summary>
         /// <param name="item"></param>
         /// <param name="session"></param>
-        public static void Show(Subject item, Session session)
+        public static void Show(Group item, Session session)
         {
             while (true)
             {
@@ -58,20 +59,20 @@ namespace SchoolInformationSystem.Actions
                 Console.WriteLine($"");
                 Console.Write($"Ваш выбор: ");
                 var input = Console.ReadKey().KeyChar;
-                var items = DbConnector.GetSubjects();
+                var items = DbConnector.GetGroups();
                 switch (input)
                 {
                     case '1':
                         Console.WriteLine();
                         Console.WriteLine($"Редактирование: ");
-                        var newSubject = Create();
-                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.Name = newSubject.Name);
-                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.GroupRanges = newSubject.GroupRanges);
-                        DbConnector.SaveSubjects(items);
+                        var newItem = Create();
+                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.Letter = newItem.Letter);
+                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.Rang = newItem.Rang);
+                        DbConnector.SaveGroups(items);
                         ShowAll(session);
                         break;
                     case '2':
-                        DbConnector.SaveSubjects(items.Where(i => i.Id != item.Id).ToList());
+                        DbConnector.SaveGroups(items.Where(i => i.Id != item.Id).ToList());
                         ShowAll(session);
                         break;
                     case '3':
@@ -81,11 +82,11 @@ namespace SchoolInformationSystem.Actions
                         break;
                 }
             }
-            
+
         }
 
         /// <summary>
-        /// Поиск предмета по названию
+        /// Поиск класса по цифре класса
         /// </summary>
         /// <param name="session"></param>
         public static void Find(Session session)
@@ -95,57 +96,65 @@ namespace SchoolInformationSystem.Actions
             {
                 Console.Clear();
                 Console.WriteLine($"=========");
-                Console.Write($"Название предмета: ");
+                Console.Write($"Цифра в названии класса: ");
                 search = Console.ReadLine();
             }
             ShowAll(session, search);
         }
 
         /// <summary>
-        /// Создать новый предмет
+        /// Создать новый класс
         /// </summary>
         /// <param name="session"></param>
         public static void Create(Session session)
         {
             Console.Clear();
-            Console.WriteLine($"Создание нового предмета");
-            Subject item = Create();
+            Console.WriteLine($"Создание нового класса");
+            Group item = Create();
 
-            var items = DbConnector.GetSubjects();
+            var items = DbConnector.GetGroups();
             items.Add(item);
-            DbConnector.SaveSubjects(items);
+            DbConnector.SaveGroups(items);
 
-            WorkWithSubject.ShowMenu(session);
+            WorkWithGroup.ShowMenu(session);
         }
 
         /// <summary>
         /// Интерактивное создание объекта
         /// </summary>
         /// <returns></returns>
-        private static Subject Create()
+        private static Group Create()
         {
-            var name = String.Empty;
+            var rang = 0;
+            var letter = ' ';
             var groupsRange = new List<int>();
 
-            while (string.IsNullOrWhiteSpace(name))
+            while ( rang == 0 )
             {
-                Console.Write($"Название предмета: ");
-                name = Console.ReadLine();
-            }
-
-            while (groupsRange.Count == 0)
-            {
-                Console.Write($"В каких классах преподаётся (введите числа через пробел)? : ");
+                Console.Write($"Номер класса: ");
                 try
                 {
-                    groupsRange = Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse).ToList();
+                    rang = int.Parse(Console.ReadLine());
                 }
-                catch
+                catch 
+                {
+                    Console.WriteLine($"Неверный ввод!");
+                }  
+            }
+
+            while (letter == ' ')
+            {
+                Console.Write($"Буква класса: ");
+                try
+                {
+                    letter = Console.ReadLine()[0];
+                }
+                catch 
                 {
                     Console.WriteLine($"Неверный ввод!");
                 }
             }
-            return new Subject(name, groupsRange);
+            return new Group(rang, letter);
         }
     }
 }

@@ -14,6 +14,8 @@ namespace SchoolInformationSystem.Models
         /// </summary>
         public Guid Group { get; set; }
 
+        public Student() { }
+
         /// <summary>
         /// Конструктор для создания нового
         /// </summary>

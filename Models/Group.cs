@@ -11,32 +11,28 @@ namespace SchoolInformationSystem.Models
         /// <summary>
         /// уникальный номер класса
         /// </summary>
-        Guid Id { get; set; }
+        public Guid Id { get; set; }
         /// <summary>
         /// цифра класса
         /// </summary>
-        int Rang { get; set; }
+        public int Rang { get; set; }
         /// <summary>
         /// Буква класса
         /// </summary>
-        char Letter { get; set; }
-        /// <summary>
-        /// Список учеников данного класса/группы
-        /// </summary>
-        List<int> Students { get; set; }
+        public char Letter { get; set; }
+
+        public Group() { }
 
         /// <summary>
         /// Конструктор для нового класса
         /// </summary>
         /// <param name="rang"></param>
         /// <param name="letter"></param>
-        /// <param name="students"></param>
-        public Group(int rang, char letter, List<int> students)
+        public Group(int rang, char letter)
         {
             Id = Guid.NewGuid();
             Rang = rang;
             Letter = letter;
-            Students = students;
         }
 
         /// <summary>
@@ -45,13 +41,16 @@ namespace SchoolInformationSystem.Models
         /// <param name="id"></param>
         /// <param name="rang"></param>
         /// <param name="letter"></param>
-        /// <param name="students"></param>
-        public Group(Guid id, int rang, char letter, List<int> students)
+        public Group(Guid id, int rang, char letter)
         {
             Id = id;
             Rang = rang;
             Letter = letter;
-            Students = students;
+        }
+
+        public override string ToString()
+        {
+            return $"\n\tId: {Id}\n\tНомер класса: {Rang}\n\tБуква класса: {Letter}";
         }
     }
 }

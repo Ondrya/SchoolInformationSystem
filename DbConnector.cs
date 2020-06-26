@@ -16,12 +16,12 @@ namespace SchoolInformationSystem
 
         private static string path = Directory.GetCurrentDirectory();
 
-        private static string UserAdmins    = "Data\\UserAdmins.txt";
-        private static string UserTeachers  = "Data\\UserTeachers.txt";
-        private static string UserStudents  = "Data\\UserStudents.txt";
-        private static string Groups        = "Data\\Groups.txt";
+        private static string UserAdmins    = $"{path}\\Data\\UserAdmins.txt";
+        private static string UserTeachers  = $"{path}\\Data\\UserTeachers.txt";
+        private static string UserStudents  = $"{path}\\Data\\UserStudents.txt";
+        private static string Groups        = $"{path}\\Data\\Groups.txt";
         private static string Subjects      = $"{path}\\Data\\Subjects.txt";
-        private static string Marks         = "Data\\Marks.txt";
+        private static string Marks         = $"{path}\\Data\\Marks.txt";
         #endregion
 
         #region Работа с файлами
@@ -124,19 +124,8 @@ namespace SchoolInformationSystem
         /// <returns></returns>
         public static List<Student> GetStudents()
         {
-            var json = FileRead(UserAdmins);
-            var res = new List<Student>();
-            var defaultItem = new Student(Guid.NewGuid(), "s", "s", "Фамилия", "Имя", "Отчество", Convert.ToDateTime("1995/2/2"));
-            if (json == "")
-            {
-                res.Add(defaultItem);
-            }
-            else
-            {
-                var temp = JsonConvert.DeserializeObject<List<Student>>(json);
-                if (temp.Count == 0) res.Union(temp);
-            }
-            return res;
+            var json = FileRead(UserStudents);
+            return json != "" ? JsonConvert.DeserializeObject<List<Student>>(json) : new List<Student>();
         }
 
         /// <summary>
@@ -156,13 +145,7 @@ namespace SchoolInformationSystem
         public static List<Group> GetGroups()
         {
             var json = FileRead(Groups);
-            var res = new List<Group>();
-            if (json != "")
-            {
-                var temp = JsonConvert.DeserializeObject<List<Group>>(json);
-                res.Union(temp);
-            }
-            return res;
+            return json != "" ? JsonConvert.DeserializeObject<List<Group>>(json) : new List<Group>();
         }
         #endregion
 

@@ -11,11 +11,32 @@ namespace SchoolInformationSystem.Actions
         {
             Console.Clear();
             Console.WriteLine($"");
-            Console.WriteLine($"2. Показать список учеников");
-            Console.WriteLine($"2.1 Ученик: найти");
-            Console.WriteLine($"2.2 Ученик: добавить");
-            Console.WriteLine($"2.3 Ученик: редактировать");
-            Console.WriteLine($"2.4 Ученик: удалить");
+            Console.WriteLine($"1. Показать список учеников");
+            Console.WriteLine($"2. Ученик: найти");
+            Console.WriteLine($"3. Ученик: добавить");
+            Console.WriteLine($"0. Назад");
+            Console.Write($"Ваш выбор: ");
+            while (true)
+            {
+                var input = Console.ReadKey().KeyChar;
+                switch (input)
+                {
+                    case '1':
+                        StudentAction.ShowAll(session);
+                        break;
+                    case '2':
+                        StudentAction.Find(session);
+                        break;
+                    case '3':
+                        StudentAction.Create(session);
+                        break;
+                    case '0':
+                        MainAction.Do(session);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

@@ -47,6 +47,8 @@ namespace SchoolInformationSystem.Models
         /// </summary>
         public DateTime DateOfBirth { get; set; }
 
+        public User() { }
+
         /// <summary>
         /// Конструктор при создании
         /// </summary>
