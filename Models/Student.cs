@@ -66,7 +66,7 @@ namespace SchoolInformationSystem.Models
             sb.Append($"\n\tОтчество: {this.Patronymic}");
             sb.Append($"\n\tЛогин:    {this.Login}");
             sb.Append($"\n\tПароль:   {this.Password}");
-            sb.Append($"\n\tДата рождения: {this.DateOfBirth.ToString().Split(" ")[0]}");
+            sb.Append($"\n\tДата рождения: {this.DateOfBirth.ToString().Split(" ")[0]}"); //YYYY-MM-DD
             sb.Append($"\n\tДата создания: {this.DateCreation}");
 
             return sb.ToString();

@@ -65,7 +65,7 @@ namespace SchoolInformationSystem
                 Console.WriteLine(ex.Message);
                 throw;
             }
-
+            
             Console.WriteLine($"/*****************************/");
             Console.WriteLine($"/** Запись данных завершена **/");
             Console.WriteLine($"/*****************************/");
@@ -112,7 +112,15 @@ namespace SchoolInformationSystem
         public static List<Subject> GetSubjects()
         {
             var json = FileRead(Subjects);
-            return json != "" ? JsonConvert.DeserializeObject<List<Subject>>(json) : new List<Subject>();
+            //return json != "" ? JsonConvert.DeserializeObject<List<Subject>>(json) : new List<Subject>();
+            if (json != "")
+            {
+                return JsonConvert.DeserializeObject<List<Subject>>(json);
+            }
+            else
+            {
+                return new List<Subject>();
+            }
         }
 
         /// <summary>

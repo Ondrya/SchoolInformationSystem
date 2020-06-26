@@ -66,9 +66,16 @@ namespace SchoolInformationSystem.Actions
                     case '1':
                         Console.WriteLine();
                         Console.WriteLine($"Редактирование: ");
-                        var newSubject = Create();
-                        //items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.Name = newSubject.Name);
-                        //items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.GroupRanges = newSubject.GroupRanges);
+                        var newItem = Create();
+
+                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.Group = newItem.Group);
+                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.Login = newItem.Login);
+                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.Password = newItem.Password);
+                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.Surname = newItem.Surname);
+                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.FirstName = newItem.FirstName);
+                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.Patronymic = newItem.Patronymic);
+                        items.Where(s => s.Id == item.Id).ToList().ForEach(s => s.DateOfBirth = newItem.DateOfBirth);
+
                         DbConnector.SaveStudents(items);
                         ShowAll(session);
                         break;
