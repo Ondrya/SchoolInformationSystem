@@ -1,6 +1,7 @@
 ﻿using SchoolInformationSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SchoolInformationSystem.Actions
@@ -51,25 +52,16 @@ namespace SchoolInformationSystem.Actions
                 }
                 
             }
-            //if (session.UserRole == Roles.Teacher)
-            //{
-            //    Console.WriteLine($"Действия преподавателя...");
 
-            //    Console.WriteLine($"");
-            //    Console.WriteLine($"1. Показать список доступных классов");
-            //    Console.WriteLine($"1.1 Выбрать класс");
-            //    Console.WriteLine($"1.2 Выбрать ученика");
-            //    Console.WriteLine($"1.3 Оценка: поставить");
-            //    Console.WriteLine($"1.4 Оценка: редактировать");
-            //    Console.WriteLine($"1.5 Оценка: удалить");
-            //}
-            //if (session.UserRole == Roles.Student)
-            //{
-            //    Console.WriteLine($"Действия ученика...");
+            if (session.UserRole == Roles.Student)
+            {
+                var student = DbConnector.GetStudents().SingleOrDefault(s => s.Id == session.UserId);
+                Console.WriteLine(student);
 
-            //    Console.WriteLine($"");
-            //    Console.WriteLine($"1. Показать дневник");
-            //}
+                Console.WriteLine($"\n\n\nДля выхода нажмите любую клавишу");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
 
         }
     }
