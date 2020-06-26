@@ -7,7 +7,6 @@ namespace SchoolInformationSystem.Models
     public enum Roles
     {
         Student,
-        Teacher,
         Admin
     }
 }

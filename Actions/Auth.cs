@@ -43,11 +43,6 @@ namespace SchoolInformationSystem.Actions
                 password = Console.ReadLine();
             }
 
-            var sessionTeacher = DbConnector
-                .GetTeachers()
-                .Where(t => t.Login == login && t.Password == password)
-                .Select(u => new Session(u.Id, u.Role)).FirstOrDefault();
-
             var sessionStudent = DbConnector
                 .GetStudents()
                 .Where(t => t.Login == login && t.Password == password)
@@ -57,12 +52,6 @@ namespace SchoolInformationSystem.Actions
                 .GetAdmins()
                 .Where(t => t.Login == login && t.Password == password)
                 .Select(u => new Session(u.Id, u.Role)).FirstOrDefault();
-
-            if (sessionTeacher != null)
-            {
-                session.UserId   = sessionTeacher.UserId;
-                session.UserRole = sessionTeacher.UserRole;
-            }
 
             if (sessionStudent != null)
             {

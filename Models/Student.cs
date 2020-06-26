@@ -56,5 +56,20 @@ namespace SchoolInformationSystem.Models
         {
             Group = group;
         }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append($"\n\tId: {this.Id}");
+            sb.Append($"\n\tФамилия:  {this.Surname}");
+            sb.Append($"\n\tИмя:      {this.FirstName}");
+            sb.Append($"\n\tОтчество: {this.Patronymic}");
+            sb.Append($"\n\tЛогин:    {this.Login}");
+            sb.Append($"\n\tПароль:   {this.Password}");
+            sb.Append($"\n\tДата рождения: {this.DateOfBirth.ToString().Split(" ")[0]}");
+            sb.Append($"\n\tДата создания: {this.DateCreation}");
+
+            return sb.ToString();
+        }
     }
 }

@@ -21,11 +21,10 @@ namespace SchoolInformationSystem.Actions
             if (session.UserRole == Roles.Admin)
             {
                 Console.Clear();
-                //Console.WriteLine($"Действия администратора...");
-                Console.WriteLine($"1. Преподаватели");
-                Console.WriteLine($"2. Ученики");
-                Console.WriteLine($"3. Предметы");
-                Console.WriteLine($"4. Учебные классы");
+                Console.WriteLine();
+                Console.WriteLine($"1. Ученики");
+                Console.WriteLine($"2. Предметы");
+                Console.WriteLine($"3. Учебные классы");
                 Console.WriteLine($"0. Выход");
                 Console.WriteLine($"...");
                 Console.Write($"Ваш выбор: ");
@@ -35,15 +34,12 @@ namespace SchoolInformationSystem.Actions
                     switch (input)
                     {
                         case '1':
-                            WorkWithTeacher.ShowMenu(session);
-                            break;
-                        case '2':
                             WorkWithStudent.ShowMenu(session);
                             break;
-                        case '3':
+                        case '2':
                             WorkWithSubject.ShowMenu(session);
                             break;
-                        case '4':
+                        case '3':
                             WorkWithGroup.ShowMenu(session);
                             break;
                         case '0':

@@ -17,11 +17,9 @@ namespace SchoolInformationSystem
         private static string path = Directory.GetCurrentDirectory();
 
         private static string UserAdmins    = $"{path}\\Data\\UserAdmins.txt";
-        private static string UserTeachers  = $"{path}\\Data\\UserTeachers.txt";
         private static string UserStudents  = $"{path}\\Data\\UserStudents.txt";
         private static string Groups        = $"{path}\\Data\\Groups.txt";
         private static string Subjects      = $"{path}\\Data\\Subjects.txt";
-        private static string Marks         = $"{path}\\Data\\Marks.txt";
         #endregion
 
         #region Работа с файлами
@@ -98,27 +96,6 @@ namespace SchoolInformationSystem
         }
 
         /// <summary>
-        /// Считать преподавателей из БД
-        /// </summary>
-        /// <returns></returns>
-        public static List<Teacher> GetTeachers()
-        {
-            var json = FileRead(UserAdmins);
-            var res = new List<Teacher>();
-            var defaultItem = new Teacher("t", "t", "Фамилия", "Имя", "Отчество", Convert.ToDateTime("1995/2/2"), null, null);
-            if (json == "")
-            {
-                res.Add(defaultItem);
-            }
-            else
-            {
-                var temp = JsonConvert.DeserializeObject<List<Teacher>>(json);
-                if (temp.Count == 0) res.Union(temp);
-            }
-            return res;
-        }
-
-        /// <summary>
         /// Считать список учеников из БД
         /// </summary>
         /// <returns></returns>
@@ -170,24 +147,6 @@ namespace SchoolInformationSystem
         }
         
         /// <summary>
-        /// Сохранить оценки
-        /// </summary>
-        /// <param name="items"></param>
-        public static void SaveMarks(List<Mark> items)
-        {
-            var json = JsonConvert.SerializeObject(items);
-            try
-            {
-                FileWrite(Marks, json);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw;
-            }
-        }
-        
-        /// <summary>
         /// Сохранить предметы
         /// </summary>
         /// <param name="items"></param>
@@ -197,24 +156,6 @@ namespace SchoolInformationSystem
             try
             {
                 FileWrite(Subjects, json);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Созранить преподавателей
-        /// </summary>
-        /// <param name="items"></param>
-        public static void SaveTeachers(List<Teacher> items)
-        {
-            var json = JsonConvert.SerializeObject(items);
-            try
-            {
-                FileWrite(UserTeachers, json);
             }
             catch (Exception ex)
             {

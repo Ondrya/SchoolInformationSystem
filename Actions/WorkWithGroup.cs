@@ -10,7 +10,7 @@ namespace SchoolInformationSystem.Actions
         public static void ShowMenu(Session session)
         {
             Console.Clear();
-            Console.WriteLine($"");
+            Console.WriteLine();
             Console.WriteLine($"1. Показать список учебных классов");
             Console.WriteLine($"2. Класс: найти");
             Console.WriteLine($"3. Класс: добавить");

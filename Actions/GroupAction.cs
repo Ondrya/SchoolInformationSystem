@@ -47,10 +47,24 @@ namespace SchoolInformationSystem.Actions
         /// <param name="session"></param>
         public static void Show(Group item, Session session)
         {
+            var _students = DbConnector.GetStudents();
+            var students = _students.Where(s => s.Group == item.Id).OrderBy(s=> s.Surname).ToList();
+
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine(item);
+                Console.WriteLine();
+                Console.WriteLine($"=========");
+                Console.WriteLine($"Список класса:");
+
+                var counter = 1;
+                foreach (var student in students)
+                {
+                    Console.WriteLine($"{counter.ToString("D3")}. {student.Surname} {student.FirstName} {student.Patronymic}");
+                    counter++;
+                }
+
                 Console.WriteLine();
                 Console.WriteLine($"=========");
                 Console.WriteLine($"1. Редактировать");
